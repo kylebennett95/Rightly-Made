@@ -1,11 +1,10 @@
+import { Navigate, Outlet, Route, Routes, useNavigate } from "react-router-dom"
+import { MealCard } from "../cards/MealCard"
+import { AddMeal } from "../forms/AddMealForm";
+import { MealViews } from "../views/MealViews"
+
 export const ApplicationViews = () => {
 
-    const localProjectUser = localStorage.getItem("project_user")
-    const projectUserObject = JSON.parse(localProjectUser)
-  
-    if(projectUserObject.staff){
-      return "<h1>Staff Views</h1>"
-    } else {
-      return "<h1>Patron Views</h1>"
-    }
+ return <MealViews />
+
   }
