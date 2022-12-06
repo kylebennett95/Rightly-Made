@@ -16,7 +16,6 @@ export const MealViews = () => {
                     <Outlet />
                 </>
             }>
-            <Route path="AddMeal" element={<AddMeal />} />
             </Route>
         </Routes>
     )

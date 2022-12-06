@@ -25,6 +25,9 @@ export const MealCard = () => {
               <header>{meal.name}</header>
               <p>{meal.ingredients}</p>
               <p>{meal.instructions}</p>
+              <Link to={`/${meal.id}/edit`} className="link">
+                    Edit Meal
+              </Link>
             </section>
           ))}
         </article>
