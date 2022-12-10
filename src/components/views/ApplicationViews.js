@@ -1,6 +1,6 @@
 import { Navigate, Outlet, Route, Routes, useNavigate } from "react-router-dom"
-import { MealCard } from "../cards/MealCard"
 import { AddMeal } from "../forms/AddMealForm";
+import { EditMeal } from "../forms/EditMealForm";
 import { MealViews } from "../views/MealViews"
 
 export const ApplicationViews = () => {
@@ -16,7 +16,7 @@ export const ApplicationViews = () => {
         }
       >
         <Route path="AddMeal" element={<AddMeal />} />
-        <Route path="/staffUpcomingEvents/:recipesId/edit" element={<EditMeal />} />
+        <Route path="/:recipesId/edit" element={<EditMeal />} />
       </Route>
     </Routes>
   );

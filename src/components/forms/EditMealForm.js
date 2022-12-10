@@ -1,108 +1,105 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import "./EditEventForm.css";
 
-export const EditEventForm = () => {
-  const [event, setEvent] = useState({
-    attractionName: "",
-    description: "",
-    date: "",
-    isSaved: false,
-  });
-  const { attractionsId } = useParams();
+export const EditMeal = () => {
+  const [meal, setMeal] = useState({
+    name: "",
+    ingredients: "",
+    instructions: "",
+});
+  const { recipesId } = useParams();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    fetch(`http://localhost:8088/recipes/${recipesId}`)
+   useEffect( () => {
+   fetch(`http://localhost:8088/recipes/${recipesId}`)
       .then((response) => response.json())
       .then((data) => {
-        setEvent(data);
+        setMeal(data);
       });
-  }, [attractionsId]);
+  }, []);
 
   const handleSaveButtonClick = (e) => {
     e.preventDefault();
 
-    return fetch(`http://localhost:8088/attractions/${event.id}`, {
+    return fetch(`http://localhost:8088/attractions/${meal.id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(event),
+      body: JSON.stringify(meal),
     })
       .then((response) => response.json())
       .then(() => {
-        navigate("/StaffUpcomingEvents");
+        navigate("/");
       });
   };
 
   return (
-    <form className="eventForm">
-      <h2 className="eventForm__title">Edit Event</h2>
+    <form className="mealForm">
+      <h2 className="mealForm_title">Add Meal</h2>
       <div className="formContainer">
         <fieldset>
-          <div className="form-group">
-            <label htmlFor="attractionName">Name:</label>
+            <div className="form-group">
+                <label htmlFor="mealName">Name:</label>
+                <input
+                  required
+                  autoFocus
+                  type="text"
+                  className="form-control"
+                  value={meal.name}
+                  onChange={(evt) => {
+                    const copy = { ...meal };
+                    copy.name = evt.target.value;
+                    setMeal(copy);
+                  }}
+                />
+            </div>
+        </fieldset>
+        <fieldset>
+        <div className="form-group">
+            <label htmlFor="ingredients">Ingredients:</label>
             <input
               required
               autoFocus
               type="text"
               className="form-control"
-              placeholder="Add event name"
-              value={event.attractionName}
+              value={meal.ingredients}
               onChange={(evt) => {
-                const copy = { ...event };
-                copy.attractionName = evt.target.value;
-                setEvent(copy);
+                const copy = { ...meal };
+                copy.ingredients = evt.target.value;
+                setMeal(copy);
               }}
             />
           </div>
         </fieldset>
         <fieldset>
-          <div className="form-group">
-            <label htmlFor="description">Description:</label>
+        <div className="form-group">
+            <label htmlFor="instructions">Instructions:</label>
             <input
               required
               autoFocus
               type="text"
               className="form-control"
-              placeholder="Brief description of problem"
-              value={event.description}
+              value={meal.instructions}
               onChange={(evt) => {
-                const copy = { ...event };
-                copy.description = evt.target.value;
-                setEvent(copy);
+                const copy = { ...meal };
+                copy.instructions = evt.target.value;
+                setMeal(copy);
               }}
             />
           </div>
         </fieldset>
-        <fieldset>
-          <div className="form-group">
-            <label htmlFor="date">Date:</label>
-            <input
-              required
-              autoFocus
-              type="date"
-              className="form-control"
-              value={event.date}
-              onChange={(evt) => {
-                const copy = { ...event };
-                copy.date = evt.target.value;
-                setEvent(copy);
-              }}
-            />
-          </div>
-        </fieldset>
-
-        <button
-          onClick={(clickEvent) => {
-            handleSaveButtonClick(clickEvent);
-          }}
-          className="editEvent"
-        >
-          Edit Event
-        </button>
+        <div className="footer">
+          <button
+            onClick={(clickEvent) => {
+              handleSaveButtonClick(clickEvent);
+            }}
+            className="editEvent"
+          >
+            Edit Meal
+          </button>
+        </div>
       </div>
     </form>
-  );
-};
+  )
+}

@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 
 export const MealCard = () => {
     const [meal, setMeal] = useState([]);
+    const [filteredMeal, setFiltered] = useState([]);
     const navigate = useNavigate();
 
     const localProjectUser = localStorage.getItem("project_user");
@@ -15,12 +16,27 @@ export const MealCard = () => {
         .then((mealArray) => {
             setMeal(mealArray);
         });
-    });
+    }, []);
+
+    useEffect(() => {
+      const myMeals = meal.filter(meal => meal.userId === projectUserObject.id)
+      setFiltered(myMeals)
+    }, [meal])
+
+    const deleteButton = (id) => {
+      return fetch(`http://localhost:8088/recipes/${id}`, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json"
+          },
+        })
+      }
+    
 
     return (
         <>
         <article className="SavedEvents">
-          {meal.map((meal) => (
+          {filteredMeal.map((meal) => (
             <section>
               <header>{meal.name}</header>
               <p>{meal.ingredients}</p>
@@ -28,9 +44,19 @@ export const MealCard = () => {
               <Link to={`/${meal.id}/edit`} className="link">
                     Edit Meal
               </Link>
+              <button onClick={() => deleteButton(meal.id)}>Delete</button>
             </section>
           ))}
         </article>
       </>
       );
 }
+
+// {
+//   "id": 1,
+//   "userId": 1,
+//   "name": "Test",
+//   "ingredients": "Test",
+//   "instructions": "Test",
+//   "typeId": 2
+// },

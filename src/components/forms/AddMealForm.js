@@ -3,23 +3,39 @@ import { useNavigate } from "react-router-dom";
 
 export const AddMeal = () => {
     const [meal, setMeal] = useState({
+        userId: "",
         name: "",
         ingredients: "",
         instructions: "",
+        typeId: "",
     });
-
+    const [types, setTypes] = useState([]);
     const navigate = useNavigate();
+
+    const localProjectUser = localStorage.getItem("project_user");
+    const projectUserObject = JSON.parse(localProjectUser);
+
+    useEffect(() => {
+      fetch(`http://localhost:8088/type`)
+        .then((response) => response.json())
+        .then((setTypesArray) => {
+          setTypes(setTypesArray)
+          console.log(types)
+        })
+    }, []);
 
     const handleSaveButtonClick = (e) => {
         e.preventDefault();
 
         const mealToSendToAPI = {
+            userId: projectUserObject.id,
             name: meal.name,
             ingredients: meal.ingredients,
             instructions: meal.instructions,
+            typeId: meal.typeId
         };
 
-        return fetch(`http://localhost:8088/recipes`, {
+      const recipeData = fetch(`http://localhost:8088/recipes`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -31,6 +47,15 @@ export const AddMeal = () => {
         navigate("/");
       });
   };
+
+  // const fetchingTypes = () => {
+  //     fetch(`http://localhost:8088/type`)
+  //     .then((res) => res.json())
+  //     .then((type) => {
+  //       setTypes(type);
+  //     });
+  // }
+  
 
   return (
     <form className="mealForm">
@@ -87,6 +112,16 @@ export const AddMeal = () => {
             />
           </div>
         </fieldset>
+        <section className="mealType" key={`type--${types.id}`}>
+        <select onChange={(evt) => {
+          const copy = { ...meal };
+          copy.typeId = evt.target.value;
+          setMeal(copy)}}>{types.map((type) => (
+            <option value={type.id}>{type.mealType}</option>
+          ))
+        }     
+        </select>
+        </section>
         <div className="footer">
           <button
             onClick={(clickEvent) => {
@@ -101,3 +136,13 @@ export const AddMeal = () => {
     </form>
   )
 }
+
+/* <option value="1">Breakfast</option>
+<option value="2">Lunch</option>
+<option value="3">Dinner</option> */
+
+          /* {
+            types.map((type) => (
+              <option value={type.id}>{type.mealType}</option>
+            ))
+          } */
