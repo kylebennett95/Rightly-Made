@@ -43,6 +43,25 @@ export const MealCard = () => {
             fetchData();
           });
         };
+
+        const FavoriteMeal = () => {
+          const userFavoriteMeal = {
+            userId: projectUserObject.id,
+            recipeId: filteredMeal.id,
+          };
+        
+
+          return fetch(`http://localhost:8088/favoriteRecipe`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(userFavoriteMeal)
+          })
+            .then((response) => {
+            fetchData();
+          });
+        };
     
 
     return (
@@ -57,6 +76,7 @@ export const MealCard = () => {
               <Link to={`/${meal.id}/edit`} className="link">
                     Edit Meal
               </Link>
+              <button onClick={() => FavoriteMeal(meal.id)}>Add to Favorites</button>
               <button onClick={() => deleteButton(meal.id)}>Delete</button>
             </section>
           ))}

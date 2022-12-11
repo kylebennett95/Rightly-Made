@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "./FavoriteMeals.css"
 
 export const FavoriteMeals = () => {
     const [favoriteMeals, setFavoriteMeals] = useState([]);
@@ -8,7 +9,7 @@ export const FavoriteMeals = () => {
     const projectUserObject = JSON.parse(localProjectUser);
 
     var fetchData = () => {
-        fetch(`http://localhost:8088/recipes?_expand=favoriteRecipe`)
+        fetch(`http://localhost:8088/favoriteRecipe?_expand=recipe`)
         .then((response) => response.json())
         .then((favoriteMealArray) => {
             setFavoriteMeals(favoriteMealArray.filter((obj) => obj.userId === projectUserObject.id))
@@ -16,28 +17,39 @@ export const FavoriteMeals = () => {
     };
 
     useEffect(() => {
-        fetch(`http://localhost:8088/recipes?_expand=favoriteRecipe`)
+        fetch(`http://localhost:8088/favoriteRecipe?_expand=recipe`)
         .then((response) => response.json())
         .then((favoriteMealArray) => {
             setFavoriteMeals(favoriteMealArray.filter((obj) => obj.userId === projectUserObject.id))
         });
     }, []);
 
+    const unfavoriteButtonClick = (id) => {
+        return fetch(`http://localhost:8088/favoriteRecipe/${id}`, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }).then((response) => {
+          fetchData();
+        });
+      };
+
     return (
         <>
             <h2>Favorite Meals</h2>
-
-            <article className="FavoriteMeals">
-                <p>Hello</p>
+            <div class="container">
+            <article className="savedMeals">
                 {favoriteMeals.map((meal) => (
-                    <section>
-                        <header>{meal.recipes.name}</header>
-                        <p>Hello</p>
-                        <p>{meal.recipes.instructions}</p>
+                    <section className="card">
+                        <header>{meal.recipe.name}</header>
+                        <p>{meal.recipe.ingredients}</p>
+                        <p>{meal.recipe.instructions}</p>
+                        <button onClick={() => unfavoriteButtonClick(meal.id)}>Remove from Favorites</button>
                     </section>
                 ))}
             </article>
-            <p>Hi</p>
+            </div>
         </>
     )
 }

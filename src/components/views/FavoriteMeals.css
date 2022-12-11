@@ -1,0 +1,28 @@
+.savedMeals {
+    height: 100%;
+    display: flex;
+    padding-left: 20%;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.card {
+    height: 65vh;
+    width: 40vh;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid red;
+    align-content: flex-start;
+    flex-wrap: wrap;
+    text-align: center;
+    background-color: rgb(136, 136, 133);
+    margin-left: 40px;
+    margin-right: 40px;
+    margin-bottom: 35px;
+}
+
+.container {
+    height: 75vh;
+    display: flex;
+    flex-direction: column;
+  }
