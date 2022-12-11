@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import "./AddMealForm.css"
 
 export const AddMeal = () => {
     const [meal, setMeal] = useState({
@@ -20,7 +21,6 @@ export const AddMeal = () => {
         .then((response) => response.json())
         .then((setTypesArray) => {
           setTypes(setTypesArray)
-          console.log(types)
         })
     }, []);
 
@@ -32,7 +32,7 @@ export const AddMeal = () => {
             name: meal.name,
             ingredients: meal.ingredients,
             instructions: meal.instructions,
-            typeId: meal.typeId
+            typeId: parseInt(meal.typeId)
         };
 
       const recipeData = fetch(`http://localhost:8088/recipes`, {
@@ -112,7 +112,9 @@ export const AddMeal = () => {
             />
           </div>
         </fieldset>
+        <div className="form-group">
         <section className="mealType" key={`type--${types.id}`}>
+        <label htmlFor="type">Meal Type:</label>
         <select onChange={(evt) => {
           const copy = { ...meal };
           copy.typeId = evt.target.value;
@@ -122,12 +124,13 @@ export const AddMeal = () => {
         }     
         </select>
         </section>
+        </div>
         <div className="footer">
           <button
             onClick={(clickEvent) => {
               handleSaveButtonClick(clickEvent);
             }}
-            className="addEvent"
+            className="addMeal"
           >
             Add Meal
           </button>

@@ -1,5 +1,6 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
+import "./NavBar.css"
 
 export const NavBar = () => {
   const navigate = useNavigate();
@@ -13,7 +14,7 @@ export const NavBar = () => {
           </Link>
         </div>
         <div className="navbar__item active">
-          <Link className="navbar__link" to="/AboutUs">
+          <Link className="navbar__link" to="/MyFavorites">
             My Favorites
           </Link>
         </div>

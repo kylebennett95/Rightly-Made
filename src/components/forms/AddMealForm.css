@@ -1,0 +1,45 @@
+.mealForm {
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+.mealForm_title {
+  color: black
+}
+
+.formContainer {
+  background-color: rgb(136, 136, 133);
+  width: 50vw;
+  position: relative;
+  border: 1px solid rgba(0, 0, 0, 0.621);
+  border-radius: 5px;
+}
+
+.form-group {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.form-group input {
+    width: 60%;
+}
+
+.addMeal {
+  min-height: 40px;
+  min-width: 14%;
+  margin-right: 3%;
+  background: rgb(197, 74, 74);
+  border: none;
+  font-family: "Glegoo";
+  color: blanchedalmond;
+  border-radius: 5px;
+}
+
+.footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 15px;
+}

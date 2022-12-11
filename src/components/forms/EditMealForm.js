@@ -6,7 +6,9 @@ export const EditMeal = () => {
     name: "",
     ingredients: "",
     instructions: "",
+    typeId: "",
 });
+  const [types, setTypes] = useState([]);
   const { recipesId } = useParams();
   const navigate = useNavigate();
 
@@ -18,10 +20,18 @@ export const EditMeal = () => {
       });
   }, []);
 
+  useEffect(() => {
+    fetch(`http://localhost:8088/type`)
+      .then((response) => response.json())
+      .then((setTypesArray) => {
+        setTypes(setTypesArray)
+      })
+  }, []);
+
   const handleSaveButtonClick = (e) => {
     e.preventDefault();
 
-    return fetch(`http://localhost:8088/attractions/${meal.id}`, {
+    return fetch(`http://localhost:8088/recipes/${meal.id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -89,6 +99,16 @@ export const EditMeal = () => {
             />
           </div>
         </fieldset>
+        <section className="mealType" key={`type--${types.id}`}>
+        <select onChange={(evt) => {
+          const copy = { ...meal };
+          copy.typeId = evt.target.value;
+          setMeal(copy)}}>{types.map((type) => (
+            <option value={type.id}>{type.mealType}</option>
+          ))
+        }     
+        </select>
+        </section>
         <div className="footer">
           <button
             onClick={(clickEvent) => {

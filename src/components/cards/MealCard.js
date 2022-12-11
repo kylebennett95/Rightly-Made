@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import "./MealCard.css"
 
 export const MealCard = () => {
     const [meal, setMeal] = useState([]);
@@ -9,6 +10,14 @@ export const MealCard = () => {
 
     const localProjectUser = localStorage.getItem("project_user");
     const projectUserObject = JSON.parse(localProjectUser);
+
+    var fetchData = () => {
+      fetch(`http://localhost:8088/recipes?_expand=type`)
+      .then((response) => response.json())
+      .then((savedMealArray) => {
+        setMeal(savedMealArray.filter((obj) => obj.userId === projectUserObject.id));
+      });
+    }
 
     useEffect(() => {
         fetch(`http://localhost:8088/recipes`)
@@ -23,21 +32,25 @@ export const MealCard = () => {
       setFiltered(myMeals)
     }, [meal])
 
-    const deleteButton = (id) => {
-      return fetch(`http://localhost:8088/recipes/${id}`, {
+    const deleteButton = async (id) => {
+      return await fetch(`http://localhost:8088/recipes/${id}`, {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json"
           },
         })
-      }
+          .then((response) => {
+            fetchData();
+          });
+        };
     
 
     return (
         <>
-        <article className="SavedEvents">
+        <div class="container">
+        <article className="savedMeals">
           {filteredMeal.map((meal) => (
-            <section>
+            <section className="card">
               <header>{meal.name}</header>
               <p>{meal.ingredients}</p>
               <p>{meal.instructions}</p>
@@ -48,6 +61,7 @@ export const MealCard = () => {
             </section>
           ))}
         </article>
+        </div>
       </>
       );
 }
