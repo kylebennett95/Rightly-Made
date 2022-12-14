@@ -3,8 +3,12 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import "./MealCard.css"
 
-export const MealCard = () => {
+export const MealCard = ({recipeId}) => {
     const [meal, setMeal] = useState([]);
+    const [favoriteMeal, setFavoriteMeal] = useState({
+      userId: 0,
+      recipeId: recipeId
+    });
     const [filteredMeal, setFiltered] = useState([]);
     const navigate = useNavigate();
 
@@ -27,6 +31,14 @@ export const MealCard = () => {
         });
     }, []);
 
+    useEffect((id) => {
+      fetch(`http://localhost:8088/recipes?_expand=favoriteRecipes`)
+      .then((response) => response.json())
+      .then((data) => {
+          setFavoriteMeal(data.filter((obj) => obj.recipes.id === recipeId));
+      });
+  }, [recipeId]);
+
     useEffect(() => {
       const myMeals = meal.filter(meal => meal.userId === projectUserObject.id)
       setFiltered(myMeals)
@@ -47,7 +59,7 @@ export const MealCard = () => {
         const FavoriteMeal = () => {
           const userFavoriteMeal = {
             userId: projectUserObject.id,
-            recipeId: filteredMeal.id,
+            recipeId: recipeId,
           };
         
 
@@ -59,6 +71,7 @@ export const MealCard = () => {
             body: JSON.stringify(userFavoriteMeal)
           })
             .then((response) => {
+              console.log(favoriteMeal)
             fetchData();
           });
         };
