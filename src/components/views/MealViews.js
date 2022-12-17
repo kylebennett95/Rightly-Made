@@ -1,6 +1,8 @@
 import { Navigate, Outlet, Route, Routes, useNavigate } from "react-router-dom"
 import { MealCard } from "../cards/MealCard"
 import { AddMeal } from "../forms/AddMealForm";
+import { FavoriteMeals } from "./FavoriteMeals";
+import "./Views.css"
 
 export const MealViews = () => {
     const navigate = useNavigate();
@@ -9,11 +11,16 @@ export const MealViews = () => {
         <Routes>
             <Route path="/" element={
                 <>
-                    <h1>Rightly-Made Recipes</h1>
-                    <button onClick={() => navigate("AddMeal")} className="addMealButton">Add New Meal</button>
+                    <h1 className="title">Rightly-Made Recipes</h1>
+                    <div className="main">
+                        <div className="mainHeader">
+                    <button  onClick={() => navigate("AddMeal")} className="button">Add New Meal</button>
+                        </div>
+                        <div className="cardMain">
                     <MealCard />
-
+                        </div>
                     <Outlet />
+                    </div>
                 </>
             }>
             </Route>

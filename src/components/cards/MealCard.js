@@ -56,12 +56,14 @@ export const MealCard = ({recipeId}) => {
           });
         };
 
-        const FavoriteMeal = () => {
+        const FavoriteMeal = (id) => {
           const userFavoriteMeal = {
             userId: projectUserObject.id,
-            recipeId: recipeId,
+            recipeId: id,
           };
-        
+
+          
+    
 
           return fetch(`http://localhost:8088/favoriteRecipe`, {
             method: "POST",
@@ -83,14 +85,24 @@ export const MealCard = ({recipeId}) => {
         <article className="savedMeals">
           {filteredMeal.map((meal) => (
             <section className="card">
-              <header>{meal.name}</header>
-              <p>{meal.ingredients}</p>
-              <p>{meal.instructions}</p>
+              <div className="cardHeader">
+              <header className="header">{meal.name}</header>
+              </div>
+              <div className="cardBody">
+              <p className="labels">Ingredients:</p>
+              <p className="cardContents">{meal.ingredients}</p>
+              <p className="labels">Instructions:</p>
+              <p className="cardContents">{meal.instructions}</p>
+              </div>
+              <div className="cardButtons">
               <Link to={`/${meal.id}/edit`} className="link">
                     Edit Meal
               </Link>
-              <button onClick={() => FavoriteMeal(meal.id)}>Add to Favorites</button>
-              <button onClick={() => deleteButton(meal.id)}>Delete</button>
+              <div className="cardButtons">
+              <button className="cardButton" onClick={() => FavoriteMeal(meal.id)}>Add to Favorites</button>
+              <button className="cardButton" onClick={() => deleteButton(meal.id)}>Delete</button>
+              </div>
+              </div>
             </section>
           ))}
         </article>

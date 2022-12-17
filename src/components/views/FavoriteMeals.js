@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./FavoriteMeals.css"
+import "./Views.css"
 
 export const FavoriteMeals = () => {
     const [favoriteMeals, setFavoriteMeals] = useState([]);
@@ -42,10 +42,12 @@ export const FavoriteMeals = () => {
             <article className="savedMeals">
                 {favoriteMeals.map((meal) => (
                     <section className="card">
-                        <header>{meal.recipe.name}</header>
-                        <p>{meal.recipe.ingredients}</p>
-                        <p>{meal.recipe.instructions}</p>
-                        <button onClick={() => unfavoriteButtonClick(meal.id)}>Remove from Favorites</button>
+                        <header className="header">{meal.recipe.name}</header>
+                        <p className="labels">Ingredients:</p>
+                        <p className="cardContents">{meal.recipe.ingredients}</p>
+                        <p className="labels">Instructions</p>
+                        <p className="cardContents">{meal.recipe.instructions}</p>
+                        <button className="unfavoriteButton" onClick={() => unfavoriteButtonClick(meal.id)}>Remove from Favorites</button>
                     </section>
                 ))}
             </article>
