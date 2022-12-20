@@ -3,15 +3,11 @@ width: 94px;
 height: 20px;
 left: 149px;
 top: 313px;
-
 font-family: 'Gilroy';
 font-style: normal;
 font-weight: 800;
 font-size: 16px;
 line-height: 20px;
-/* identical to box height */
-
-
 color: #858585;
 }
 
@@ -36,7 +32,6 @@ color: #FFFFFF;
 
 .cardHeader {
   box-sizing: border-box;
-
 height: 73px;
 left: 106px;
 top: 230px;
@@ -69,7 +64,6 @@ font-style: normal;
 font-weight: 800;
 font-size: 16px;
 line-height: 20px;
-
 color: #FFFFFF;
 }
 
@@ -104,4 +98,8 @@ color: white;
 html {
     background-color: rgb(82, 83, 82);
     background-image: url("./steak.jpg");
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    background-attachment: fixed;
+    background-size: cover;
   }
