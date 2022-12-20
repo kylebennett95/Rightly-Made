@@ -111,11 +111,6 @@ export const MealCard = ({recipeId}) => {
       );
 }
 
-// {
-//   "id": 1,
-//   "userId": 1,
-//   "name": "Test",
-//   "ingredients": "Test",
-//   "instructions": "Test",
-//   "typeId": 2
-// },
+//make header left and header right. Add to Favorites will go in header right, padding, move edit and delete further down to the bottom right.
+//Display flex direction flex end for the title in the left div
+

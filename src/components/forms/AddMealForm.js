@@ -58,11 +58,15 @@ export const AddMeal = () => {
   
 
   return (
+    <>
+    <h1 className="title">Rightly-Made Recipes</h1>
+    <div className="container">
     <form className="mealForm">
       <h2 className="mealForm_title">Add Meal</h2>
       <div className="formContainer">
         <fieldset>
             <div className="form-group">
+            <section className="instructions">
                 <label htmlFor="mealName">Name:</label>
                 <input
                   required
@@ -76,10 +80,12 @@ export const AddMeal = () => {
                     setMeal(copy);
                   }}
                 />
+                </section>
             </div>
         </fieldset>
         <fieldset>
         <div className="form-group">
+        <section className="instructions">
             <label htmlFor="ingredients">Ingredients:</label>
             <input
               required
@@ -93,10 +99,12 @@ export const AddMeal = () => {
                 setMeal(copy);
               }}
             />
+            </section>
           </div>
         </fieldset>
         <fieldset>
         <div className="form-group">
+          <section className="instructions">
             <label htmlFor="instructions">Instructions:</label>
             <input
               required
@@ -110,6 +118,7 @@ export const AddMeal = () => {
                 setMeal(copy);
               }}
             />
+            </section>
           </div>
         </fieldset>
         <div className="form-group">
@@ -126,17 +135,14 @@ export const AddMeal = () => {
         </section>
         </div>
         <div className="footer">
-          <button
-            onClick={(clickEvent) => {
-              handleSaveButtonClick(clickEvent);
-            }}
-            className="addMeal"
-          >
-            Add Meal
-          </button>
+          <div className="cardButtons">
+          <button className="cardButton" onClick={(clickEvent) => {handleSaveButtonClick(clickEvent)}}>Add Meal</button>
+          </div>
         </div>
       </div>
     </form>
+    </div>
+    </>
   )
 }
 

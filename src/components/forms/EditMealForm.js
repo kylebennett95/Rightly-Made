@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import "./AddMealForm.css"
 
 export const EditMeal = () => {
   const [meal, setMeal] = useState({
@@ -45,11 +46,15 @@ export const EditMeal = () => {
   };
 
   return (
+    <>
+    <h1 className="title">Rightly-Made Recipes</h1>
+    <div className="container">
     <form className="mealForm">
       <h2 className="mealForm_title">Add Meal</h2>
       <div className="formContainer">
         <fieldset>
             <div className="form-group">
+              <section className="instructions">
                 <label htmlFor="mealName">Name:</label>
                 <input
                   required
@@ -63,10 +68,12 @@ export const EditMeal = () => {
                     setMeal(copy);
                   }}
                 />
+                </section>
             </div>
         </fieldset>
         <fieldset>
         <div className="form-group">
+          <section className="instructions">
             <label htmlFor="ingredients">Ingredients:</label>
             <input
               required
@@ -80,10 +87,12 @@ export const EditMeal = () => {
                 setMeal(copy);
               }}
             />
+            </section>
           </div>
         </fieldset>
         <fieldset>
         <div className="form-group">
+          <section className="instructions">
             <label htmlFor="instructions">Instructions:</label>
             <input
               required
@@ -97,9 +106,11 @@ export const EditMeal = () => {
                 setMeal(copy);
               }}
             />
+            </section>
           </div>
         </fieldset>
         <section className="mealType" key={`type--${types.id}`}>
+        <label htmlFor="type">Meal Type:</label>
         <select onChange={(evt) => {
           const copy = { ...meal };
           copy.typeId = evt.target.value;
@@ -110,16 +121,12 @@ export const EditMeal = () => {
         </select>
         </section>
         <div className="footer">
-          <button
-            onClick={(clickEvent) => {
-              handleSaveButtonClick(clickEvent);
-            }}
-            className="editEvent"
-          >
-            Edit Meal
+          <button className="cardButton" onClick={(clickEvent) => {handleSaveButtonClick(clickEvent)}}>Edit Meal
           </button>
         </div>
       </div>
     </form>
+    </div>
+    </>
   )
 }
